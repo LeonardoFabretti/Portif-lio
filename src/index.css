@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 90%;
+
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 90%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 90%;
+
+    --primary: 258 90% 66%;
+    --primary-foreground: 0 0% 100%;
+    
+    --primary-glow: 258 90% 76%;
+    --primary-dark: 258 70% 45%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 258 90% 66%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 258 90% 66%;
+
+    --radius: 0.75rem;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(258 70% 8%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 6%) 0%, hsl(258 30% 8%) 100%);
+    
+    --shadow-glow: 0 0 30px hsl(258 90% 66% / 0.3);
+    --shadow-glow-sm: 0 0 15px hsl(258 90% 66% / 0.2);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--primary-glow) / 0.5);
+  }
+  
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .shadow-glow-sm {
+    box-shadow: var(--shadow-glow-sm);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(30px, 30px);
+    }
+    50% {
+      transform: translate(0, 60px);
+    }
+    75% {
+      transform: translate(-30px, 30px);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+  }
+  
+  .animate-float-slow {
+    animation: float-slow 20s ease-in-out infinite;
+  }
+  
+  .animate-float-slow-delayed {
+    animation: float-slow 20s ease-in-out infinite;
+    animation-delay: -10s;
+  }
+}
