@@ -4,7 +4,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import sistemaFinanceiroImg from "@/assets/sistema-financeiro.png";
 import sistemaReservasImg from "@/assets/sistema-reservas.png";
 import sistemaAgendamentoImg from "@/assets/sistema-agendamento.png";
-import sistemaLoginImg from "@/assets/sistema-login.png";
+import cardapioImg from "@/assets/cardapio.png";
 
 const Projects = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -35,12 +35,12 @@ const Projects = () => {
       codeLink: "https://github.com/LeonardoFabretti/Sistema-de-Agendamento",
     },
     {
-      title: "Sistema de Login",
-      description: "Sistema de Autenticação Desenvolvido para mostrar funcionalidade de código Backend",
-      tags: ["JavaScript", "HTML", "CSS", "PLpgSQL"],
-      image: sistemaLoginImg,
-      link: "https://leonardofabretti.github.io/Sistema-de-Login/",
-      codeLink: "https://github.com/LeonardoFabretti/Sistema-de-Login",
+      title: "Cardápio Digital",
+      description: "Cardápio digital para restaurantes. A ideia foi criar uma experiência simples, moderna e funcional, focada principalmente em usuários de celular, já que o acesso pode ser feito diretamente por QR Code nas mesas.",
+      tags: ["HTML", "CSS", "JavaScript"],
+      image: cardapioImg,
+      link: "https://leonardofabretti.github.io/cardapio/",
+      codeLink: "https://github.com/LeonardoFabretti/cardapio",
     },
   ];
 
