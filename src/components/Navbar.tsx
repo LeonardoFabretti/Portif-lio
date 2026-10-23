@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Logo from "@/components/Logo";
 import { navLinks, socialLinks, whatsappLink } from "@/data/portfolio";
@@ -9,7 +9,7 @@ const sectionIds = navLinks.map((link) => link.id);
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const progressRef = useRef<HTMLDivElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const active = useActiveSection(sectionIds);
 
@@ -19,8 +19,11 @@ const Navbar = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const max = document.documentElement.scrollHeight - window.innerHeight;
+        // A barra é atualizada direto no elemento: rolar não re-renderiza o menu
+        if (progressRef.current) {
+          progressRef.current.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
+        }
         setIsScrolled(window.scrollY > 24);
-        setProgress(max > 0 ? Math.min(window.scrollY / max, 1) : 0);
       });
     };
     handleScroll();
@@ -54,7 +57,8 @@ const Navbar = () => {
     <>
       <div
         className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-gradient-to-r from-primary-dark via-primary to-primary-glow"
-        style={{ transform: `scaleX(${progress})` }}
+        ref={progressRef}
+        style={{ transform: "scaleX(0)" }}
         aria-hidden
       />
 
@@ -64,7 +68,7 @@ const Navbar = () => {
           className={cn(
             "mx-auto flex h-14 max-w-6xl items-center justify-between rounded-2xl border px-3 transition-all duration-500 sm:px-4",
             isScrolled || isMobileMenuOpen
-              ? "border-white/10 bg-background/75 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.8)] backdrop-blur-xl"
+              ? "border-white/10 bg-background/90 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.8)] backdrop-blur-sm"
               : "border-transparent bg-transparent",
           )}
         >
@@ -115,7 +119,7 @@ const Navbar = () => {
         <div
           id="menu-mobile"
           className={cn(
-            "mx-auto mt-2 max-w-6xl overflow-hidden rounded-2xl border border-white/10 bg-background/95 backdrop-blur-xl transition-all duration-300 md:hidden",
+            "mx-auto mt-2 max-w-6xl overflow-hidden rounded-2xl border border-white/10 bg-background transition-all duration-300 md:hidden",
             isMobileMenuOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
           )}
         >
@@ -168,7 +172,7 @@ const Navbar = () => {
       </header>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden" onClick={() => setIsMobileMenuOpen(false)} aria-hidden />
+        <div className="fixed inset-0 z-40 bg-black/60 md:hidden" onClick={() => setIsMobileMenuOpen(false)} aria-hidden />
       )}
     </>
   );

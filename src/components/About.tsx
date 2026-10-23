@@ -4,7 +4,7 @@ import { languages, services, tools } from "@/data/portfolio";
 
 const About = () => (
   <section id="sobre" className="relative overflow-hidden py-24 sm:py-32">
-    <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-primary/10 blur-[120px]" aria-hidden />
+    <div className="pointer-events-none absolute -left-40 top-20 h-[40rem] w-[40rem] -translate-y-40 bg-[radial-gradient(closest-side,hsl(var(--primary)/0.12),transparent)]" aria-hidden />
 
     <div className="container relative max-w-6xl">
       <SectionHeading
@@ -74,7 +74,7 @@ const About = () => (
             delay={index * 100}
             className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-card p-6 transition-smooth hover:-translate-y-1 hover:border-primary/40"
           >
-            <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/0 blur-2xl transition-smooth group-hover:bg-primary/20" aria-hidden />
+            <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(closest-side,hsl(var(--primary)/0.3),transparent)]" aria-hidden />
             <div className="mb-5 grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition-smooth group-hover:bg-primary group-hover:text-white">
               <service.icon size={20} />
             </div>

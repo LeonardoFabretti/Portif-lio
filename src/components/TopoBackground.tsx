@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type Point = [number, number];
@@ -38,16 +38,27 @@ const hill = (cx: number, cy: number, start: number, step: number, rings: number
 const topRight = hill(700, 120, 26, 30, 13, 0.4);
 const bottomLeft = hill(100, 690, 22, 28, 12, 2.1);
 
+type Size = { w: number; h: number };
+
 type ContoursProps = {
   paths: string[];
-  align: string;
+  /** Canto onde o morro fica preso: "top-right" ou "bottom-left" (igual ao preserveAspectRatio do SVG) */
+  corner: "top-right" | "bottom-left";
+  size: Size;
   /** Atraso inicial dos impulsos, em segundos, para os morros não acenderem juntos */
   offset: number;
   /** Índices dos anéis que recebem impulsos de luz — poucos, para ficar leve e espontâneo */
   pulseRings: number[];
 };
 
-const Contours = ({ paths, align, offset, pulseRings }: ContoursProps) => (
+const Contours = ({ paths, corner, size, offset, pulseRings }: ContoursProps) => {
+  const align = corner === "top-right" ? "xMaxYMin slice" : "xMinYMax slice";
+  // Mesma escala e posição que o SVG usa com "slice", para os impulsos caírem em cima das linhas
+  const scale = Math.max(size.w / 800, size.h / 800);
+  const x = corner === "top-right" ? size.w - 800 * scale : 0;
+  const y = corner === "top-right" ? 0 : size.h - 800 * scale;
+
+  return (
   <div className="absolute inset-0 animate-topo-drift">
     <svg viewBox="0 0 800 800" preserveAspectRatio={align} className="absolute inset-0 h-full w-full" fill="none">
       {paths.map((d, i) => (
@@ -62,26 +73,31 @@ const Contours = ({ paths, align, offset, pulseRings }: ContoursProps) => (
       ))}
     </svg>
 
-    {/* Impulsos: um traço curto e brilhante correndo pela linha, como um sinal entre neurônios.
-        Ficam num SVG separado para só esta camada ser redesenhada a cada quadro. */}
-    <svg viewBox="0 0 800 800" preserveAspectRatio={align} className="absolute inset-0 h-full w-full" fill="none">
-      {pulseRings.filter((i) => paths[i]).map((i, n) => {
-        // Lentos e espaçados: cada impulso leva ~10s para correr e depois descansa
-        const style = {
-          animationDuration: `${16 + n * 3}s`,
-          animationDelay: `${offset + n * 7}s`,
-          animationDirection: n % 2 ? "reverse" : "normal",
-        };
-        return (
-          <g key={i}>
-            <path d={paths[i]} pathLength={100} className="topo-pulse" style={style} stroke="hsl(var(--primary-glow))" strokeOpacity={0.35} strokeWidth={6} strokeLinecap="round" />
-            <path d={paths[i]} pathLength={100} className="topo-pulse" style={style} stroke="#ede9fe" strokeWidth={1.6} strokeLinecap="round" />
-          </g>
-        );
-      })}
-    </svg>
+    {/* Impulsos: um ponto de luz que desliza pelo contorno (offset-path), como um sinal entre neurônios.
+        Só o ponto se move; o fundo não é redesenhado a cada quadro. */}
+    {size.w > 0 && (
+      <div
+        className="absolute left-0 top-0 h-[800px] w-[800px] origin-top-left"
+        style={{ transform: `translate(${x}px, ${y}px) scale(${scale})` }}
+      >
+        {pulseRings.filter((i) => paths[i]).map((i, n) => (
+          <span
+            key={i}
+            className="topo-spark"
+            style={{
+              offsetPath: `path("${paths[i]}")`,
+              // Lentos e espaçados: cada impulso leva ~10s para correr e depois descansa
+              animationDuration: `${16 + n * 3}s`,
+              animationDelay: `${offset + n * 7}s`,
+              animationDirection: n % 2 ? "reverse" : "normal",
+            }}
+          />
+        ))}
+      </div>
+    )}
   </div>
-);
+  );
+};
 
 type TopoBackgroundProps = {
   className?: string;
@@ -95,19 +111,30 @@ type TopoBackgroundProps = {
  */
 const TopoBackground = ({ className, variant = "both" }: TopoBackgroundProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState<Size>({ w: 0, h: 0 });
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    const observer = new IntersectionObserver(([entry]) => el.classList.toggle("topo-paused", !entry.isIntersecting));
-    observer.observe(el);
-    return () => observer.disconnect();
+    if (!el) return;
+    // Mede já na montagem (o ResizeObserver só avisa depois do primeiro desenho) e acompanha mudanças
+    setSize({ w: el.clientWidth, h: el.clientHeight });
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      setSize((prev) => (prev.w === width && prev.h === height ? prev : { w: width, h: height }));
+    });
+    resizeObserver.observe(el);
+    const visibility = new IntersectionObserver(([entry]) => el.classList.toggle("topo-paused", !entry.isIntersecting));
+    visibility.observe(el);
+    return () => {
+      resizeObserver.disconnect();
+      visibility.disconnect();
+    };
   }, []);
 
   return (
     <div ref={ref} className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)} aria-hidden>
-      <Contours paths={topRight} align="xMaxYMin slice" offset={1} pulseRings={variant === "both" ? [3, 9] : [5]} />
-      {variant === "both" && <Contours paths={bottomLeft} align="xMinYMax slice" offset={5} pulseRings={[4, 10]} />}
+      <Contours paths={topRight} corner="top-right" size={size} offset={1} pulseRings={variant === "both" ? [3, 9] : [5]} />
+      {variant === "both" && <Contours paths={bottomLeft} corner="bottom-left" size={size} offset={5} pulseRings={[4, 10]} />}
     </div>
   );
 };

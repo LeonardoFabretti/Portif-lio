@@ -9,7 +9,7 @@ const Contact = () => (
       <Reveal>
         <div className="border-gradient relative overflow-hidden rounded-3xl bg-gradient-card px-6 py-14 text-center sm:px-12 sm:py-20">
           <div className="bg-grid pointer-events-none absolute inset-0 opacity-70" aria-hidden />
-          <div className="pointer-events-none absolute -bottom-32 left-1/2 h-72 w-[36rem] max-w-full -translate-x-1/2 rounded-full bg-primary/30 blur-[120px]" aria-hidden />
+          <div className="pointer-events-none absolute -bottom-32 left-1/2 h-[30rem] w-[56rem] max-w-[200%] -translate-x-1/2 bg-[radial-gradient(closest-side,hsl(var(--primary)/0.35),transparent)]" aria-hidden />
 
           <div className="relative">
             <p className="mb-4 flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-primary sm:text-sm">

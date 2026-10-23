@@ -178,27 +178,35 @@ All colors MUST be HSL.
     animation: fade-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  /* Impulso de luz nas linhas topográficas: um traço curto (5% da linha) que corre, some e descansa.
-     Com "reduzir movimento", o CSS global encerra a animação já no estado apagado. */
-  .topo-pulse {
-    stroke-dasharray: 5 95;
-    stroke-dashoffset: 100;
+  /* Impulso de luz nas linhas topográficas: um ponto que desliza pelo contorno (offset-path), some e descansa.
+     Só o ponto se move, sem redesenhar o fundo. Com "reduzir movimento", o CSS global encerra já apagado. */
+  .topo-spark {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, #f5f3ff 0%, hsl(var(--primary-glow) / 0.85) 30%, hsl(var(--primary) / 0) 70%);
+    offset-anchor: center;
+    offset-rotate: 0deg;
     opacity: 0;
-    animation-name: topo-pulse;
+    will-change: offset-distance, opacity;
+    animation-name: topo-spark;
     animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
     animation-iteration-count: infinite;
     animation-fill-mode: both;
   }
 
   /* Fundo fora da tela: congela os impulsos e a deriva das linhas */
-  .topo-paused .topo-pulse,
+  .topo-paused .topo-spark,
   .topo-paused .animate-topo-drift {
     animation-play-state: paused;
   }
 
-  @keyframes topo-pulse {
+  @keyframes topo-spark {
     0% {
-      stroke-dashoffset: 100;
+      offset-distance: 0%;
       opacity: 0;
     }
     8% {
@@ -208,11 +216,11 @@ All colors MUST be HSL.
       opacity: 1;
     }
     62% {
-      stroke-dashoffset: 30;
+      offset-distance: 70%;
       opacity: 0;
     }
     100% {
-      stroke-dashoffset: 30;
+      offset-distance: 70%;
       opacity: 0;
     }
   }

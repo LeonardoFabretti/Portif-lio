@@ -8,14 +8,16 @@ import { profile, socialLinks, whatsappLink } from "@/data/portfolio";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const spotRef = useRef<HTMLDivElement>(null);
 
-  // Luz roxa que acompanha o cursor (só em telas com mouse)
+  // Luz roxa que acompanha o cursor (só em telas com mouse). Só a mancha de luz é deslocada,
+  // com transform: a placa de vídeo move sem redesenhar nem recalcular o resto da abertura.
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
-    el.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
+    const section = sectionRef.current;
+    const spot = spotRef.current;
+    if (!section || !spot) return;
+    const rect = section.getBoundingClientRect();
+    spot.style.transform = `translate3d(${e.clientX - rect.left - 500}px, ${e.clientY - rect.top - 500}px, 0)`;
   };
 
   return (
@@ -29,13 +31,14 @@ const Hero = () => {
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <TopoBackground />
         <div
-          className="absolute inset-0 hidden opacity-0 transition-opacity duration-500 group-hover/hero:opacity-100 md:block"
+          ref={spotRef}
+          className="absolute left-0 top-0 hidden h-[1000px] w-[1000px] opacity-0 transition-opacity duration-500 will-change-transform group-hover/hero:opacity-100 md:block"
           style={{
-            background:
-              "radial-gradient(500px circle at var(--spot-x, 50%) var(--spot-y, 40%), hsl(var(--primary) / 0.12), transparent 60%)",
+            background: "radial-gradient(500px circle at center, hsl(var(--primary) / 0.12), transparent 60%)",
+            transform: "translate3d(calc(50vw - 500px), -100px, 0)",
           }}
         />
-        <div className="absolute -top-40 left-1/2 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-primary/20 blur-[140px]" />
+        <div className="absolute -top-40 left-1/2 h-[760px] w-[760px] -translate-x-1/2 -translate-y-24 bg-[radial-gradient(closest-side,hsl(var(--primary)/0.22),transparent)]" />
       </div>
 
       <div className="container relative z-10 max-w-6xl">

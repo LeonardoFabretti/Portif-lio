@@ -22,6 +22,7 @@ const ProjectPreview = ({ project }: { project: Project }) => {
             alt={`Tela do projeto ${project.title}`}
             className="aspect-[9/17] w-full rounded-[1.5rem] object-cover object-center"
             loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -46,6 +47,7 @@ const ProjectPreview = ({ project }: { project: Project }) => {
           alt={`Tela do projeto ${project.title}`}
           className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           loading="lazy"
+            decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 transition-smooth group-hover:opacity-100" />
       </div>
@@ -83,7 +85,7 @@ const Projects = () => (
                   className="relative block rounded-2xl"
                   aria-label={`Abrir ${project.title} em uma nova aba`}
                 >
-                  <div className="absolute -inset-4 rounded-3xl bg-primary/0 blur-2xl transition-smooth duration-500 group-hover:bg-primary/15" aria-hidden />
+                  <div className="absolute -inset-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(closest-side,hsl(var(--primary)/0.18),transparent)]" aria-hidden />
                   <div className="relative">
                     <ProjectPreview project={project} />
                   </div>

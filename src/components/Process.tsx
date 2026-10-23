@@ -24,7 +24,7 @@ const Process = () => (
         <ol className="relative grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {process.map((step, index) => (
             <Reveal as="li" key={step.title} delay={index * 120} className="relative">
-              <div className="h-full rounded-2xl border border-white/[0.07] bg-background/80 p-6 backdrop-blur transition-smooth hover:border-primary/40">
+              <div className="h-full rounded-2xl border border-white/[0.07] bg-background p-6 transition-smooth hover:border-primary/40">
                 <span className="relative z-10 mb-6 grid h-11 w-11 place-items-center rounded-full border border-primary/40 bg-background font-mono text-sm font-medium text-primary shadow-glow-sm">
                   {String(index + 1).padStart(2, "0")}
                 </span>
