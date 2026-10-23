@@ -1,88 +1,69 @@
-import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Instagram, Mail, MessageCircle } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
+import CopyEmailButton from "@/components/CopyEmailButton";
+import Reveal from "@/components/Reveal";
+import { socialLinks, whatsappLink } from "@/data/portfolio";
 
-const Contact = () => {
-  const whatsappNumber = "5511985347632";
-  const whatsappLink = `https://wa.me/${whatsappNumber}`;
+const Contact = () => (
+  <section id="contato" className="relative py-24 sm:py-32">
+    <div className="container max-w-6xl">
+      <Reveal>
+        <div className="border-gradient relative overflow-hidden rounded-3xl bg-gradient-card px-6 py-14 text-center sm:px-12 sm:py-20">
+          <div className="bg-grid pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+          <div className="pointer-events-none absolute -bottom-32 left-1/2 h-72 w-[36rem] max-w-full -translate-x-1/2 rounded-full bg-primary/30 blur-[120px]" aria-hidden />
 
-  const socialLinks = [
-    { icon: Github, href: "https://github.com/LeonardoFabretti", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/leonardo-fabretti-b87968369/?trk=opento_sprofile_goalscard", label: "LinkedIn" },
-    { icon: Instagram, href: "https://www.instagram.com/lelebs_5/", label: "Instagram" },
-    { icon: Mail, href: "mailto:leonardofabretti3@gmail.com", label: "Email" },
-  ];
+          <div className="relative">
+            <p className="mb-4 flex items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-primary sm:text-sm">
+              <span>04</span>
+              <span className="h-px w-8 bg-primary/60" aria-hidden />
+              <span>Contato</span>
+            </p>
+            <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-white sm:text-5xl">
+              Vamos construir <span className="text-gradient">algo juntos</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Tem um projeto ou uma ideia em mente? Me chame no WhatsApp ou por e-mail e vamos conversar sobre como tirar
+              isso do papel.
+            </p>
 
-  return (
-    <section id="contato" className="py-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 text-primary text-glow">
-            Contato
-          </h2>
-          
-          <div className="h-1 w-20 bg-primary mx-auto mb-12 shadow-glow-sm" />
-          
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Tem um projeto em mente ou quer desenvolver algo? Entre em contato!
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-6">
-              <div className="w-full max-w-md">
-                <h3 className="text-2xl font-semibold mb-4 text-foreground">
-                  Entre em contato pelo WhatsApp
-                </h3>
-                <p className="text-muted-foreground mb-8">
-                  Clique no botão abaixo e fale comigo diretamente pelo WhatsApp. Estou pronto para conversar sobre projetos, ideias e oportunidades!
-                </p>
-                <Button
-                  asChild
-                  className="w-full bg-primary hover:bg-primary-glow text-primary-foreground shadow-glow transition-smooth group"
-                  size="lg"
-                >
-                  <a
-                    href={whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MessageCircle size={20} className="mr-2 group-hover:scale-110 transition-smooth" />
-                    Abrir WhatsApp
-                  </a>
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex flex-col justify-center text-center md:text-left">
-              <h3 className="text-2xl font-semibold mb-6 text-foreground">
-                Conecte-se comigo
-              </h3>
-              
-              <p className="text-muted-foreground mb-8 text-center md:text-left">
-                Acompanhe meu trabalho e fique por dentro das novidades nas redes sociais.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-gradient-card border border-border rounded-lg hover:border-primary transition-smooth hover:shadow-glow-sm group"
-                  >
-                    <social.icon className="text-primary group-hover:text-primary-glow transition-smooth" size={24} />
-                    <span className="text-foreground group-hover:text-primary transition-smooth">
-                      {social.label}
-                    </span>
-                  </a>
-                ))}
-              </div>
+            <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-4 text-base font-semibold text-primary-foreground shadow-glow transition-smooth hover:-translate-y-0.5 hover:bg-primary-glow"
+              >
+                <MessageCircle size={20} className="transition-smooth group-hover:scale-110" />
+                Conversar no WhatsApp
+              </a>
+              <CopyEmailButton className="justify-center rounded-xl px-6 py-4 text-base" />
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
+      </Reveal>
+
+      <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {socialLinks.map((social, index) => (
+          <Reveal as="li" key={social.label} delay={index * 80}>
+            <a
+              href={social.href}
+              target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              className="group flex h-full items-center gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition-smooth hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/[0.05]"
+            >
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition-smooth group-hover:bg-primary group-hover:text-white">
+                <social.icon size={20} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-medium text-white">{social.label}</span>
+                <span className="block truncate text-sm text-muted-foreground">{social.handle}</span>
+              </span>
+              <ArrowUpRight size={18} className="shrink-0 text-muted-foreground transition-smooth group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+            </a>
+          </Reveal>
+        ))}
+      </ul>
+    </div>
+  </section>
+);
 
 export default Contact;

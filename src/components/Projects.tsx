@@ -1,128 +1,171 @@
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import sistemaFinanceiroImg from "@/assets/sistema-financeiro.png";
-import sistemaReservasImg from "@/assets/sistema-reservas.png";
-import sistemaAgendamentoImg from "@/assets/sistema-agendamento.png";
-import cardapioImg from "@/assets/cardapio.png";
+import { ArrowUpRight, Check, Github } from "lucide-react";
+import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
+import TopoBackground from "@/components/TopoBackground";
+import { projects, socialLinks, type Project } from "@/data/portfolio";
+import { cn } from "@/lib/utils";
 
-const Projects = () => {
-  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: projectsRef, isVisible: projectsVisible } = useScrollAnimation();
-  const projects = [
-    {
-      title: "Sistema de Reservas",
-      description: "Sistema web responsivo e interativo para gerenciamento de reservas de horários com dois contextos distintos: Hotel e Aeroporto.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      image: sistemaReservasImg,
-      link: "https://leonardofabretti.github.io/sistema-reservas/",
-      codeLink: "https://github.com/LeonardoFabretti/sistema-reservas",
-    },
-    {
-      title: "💰 Sistema Financeiro",
-      description: "É um aplicativo web moderno e completo para controle financeiro pessoal.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      image: sistemaFinanceiroImg,
-      link: "https://leonardofabretti.github.io/Sistema-Financeiro/",
-      codeLink: "https://github.com/LeonardoFabretti/Sistema-Financeiro",
-    },
-    {
-      title: "Sistema de Agendamento",
-      description: "Sistema web de agendamento com área de cliente e painel administrativo, desenvolvido para demonstrar lógica de negócio, organização de código e controle de status. O projeto simula um fluxo real de serviços, podendo ser adaptado para barbearias, clínicas ou outros prestadores de serviço.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      image: sistemaAgendamentoImg,
-      link: "https://leonardofabretti.github.io/Sistema-de-Agendamento/",
-      codeLink: "https://github.com/LeonardoFabretti/Sistema-de-Agendamento",
-    },
-    {
-      title: "Cardápio Digital",
-      description: "Cardápio digital para restaurantes. A ideia foi criar uma experiência simples, moderna e funcional, focada principalmente em usuários de celular, já que o acesso pode ser feito diretamente por QR Code nas mesas.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      image: cardapioImg,
-      link: "https://leonardofabretti.github.io/cardapio/",
-      codeLink: "https://github.com/LeonardoFabretti/cardapio",
-    },
-  ];
+const githubProfile = socialLinks.find((social) => social.label === "GitHub")!;
 
-  return (
-    <section id="projetos" className="py-20 bg-gradient-hero">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={titleRef}>
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 text-primary text-glow transition-all duration-700 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}>
-            Projetos
-          </h2>
-          
-          <div className={`h-1 w-20 bg-primary mx-auto mb-12 shadow-glow-sm transition-all duration-700 delay-150 ${titleVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
-          
-          <p className={`text-center text-muted-foreground mb-16 max-w-2xl mx-auto transition-all duration-700 delay-300 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Confira alguns dos projetos que desenvolvi, demonstrando minhas habilidades em criar
-            soluções digitais modernas e funcionais.
-          </p>
-        </div>
+const displayUrl = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
-        <div ref={projectsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className={`bg-gradient-card rounded-lg overflow-hidden border border-border hover:border-primary transition-all duration-700 group hover:shadow-glow ${projectsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-smooth"
-                />
-                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-smooth" />
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-smooth">
-                  {project.title}
-                </h3>
-                
-                <p className="text-muted-foreground mb-4">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="text-xs px-3 py-1 bg-primary/10 text-primary rounded-full border border-primary/20"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex gap-3">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary/10 transition-smooth"
-                    onClick={() => project.link && window.open(project.link, "_blank")}
-                  >
-                    <ExternalLink size={16} className="mr-2" />
-                    Ver projeto
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary/10 transition-smooth"
-                    onClick={() => project.codeLink && window.open(project.codeLink, "_blank")}
-                  >
-                    <Github size={16} className="mr-2" />
-                    Código
-                  </Button>
-                </div>
-              </div>
-            </div>
-          ))}
+/** Print do projeto dentro de uma janela de navegador ou de um celular. */
+const ProjectPreview = ({ project }: { project: Project }) => {
+  if (project.frame === "mobile") {
+    return (
+      <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-br from-primary/15 via-card to-card px-6 py-10">
+        <TopoBackground variant="right" className="opacity-70" />
+        <div className="relative w-[190px] rounded-[2rem] border border-white/15 bg-black p-2 shadow-2xl transition-smooth duration-500 group-hover:-translate-y-2 group-hover:rotate-[-2deg] sm:w-[220px]">
+          <div className="absolute left-1/2 top-3.5 z-10 h-4 w-16 -translate-x-1/2 rounded-full bg-black" aria-hidden />
+          <img
+            src={project.image}
+            alt={`Tela do projeto ${project.title}`}
+            className="aspect-[9/17] w-full rounded-[1.5rem] object-cover object-center"
+            loading="lazy"
+          />
         </div>
       </div>
-    </section>
+    );
+  }
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-card shadow-2xl">
+      <div className="flex items-center gap-3 border-b border-white/[0.07] bg-white/[0.02] px-4 py-3">
+        <div className="flex gap-1.5" aria-hidden>
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]/80" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]/80" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]/80" />
+        </div>
+        <div className="min-w-0 flex-1 truncate rounded-md bg-white/[0.04] px-3 py-1 text-center font-mono text-[11px] text-muted-foreground">
+          {displayUrl(project.link)}
+        </div>
+      </div>
+      <div className="relative overflow-hidden bg-background">
+        <img
+          src={project.image}
+          alt={`Tela do projeto ${project.title}`}
+          className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 transition-smooth group-hover:opacity-100" />
+      </div>
+    </div>
   );
 };
+
+const Projects = () => (
+  <section id="projetos" className="relative bg-gradient-hero py-24 sm:py-32">
+    <div className="container max-w-6xl">
+      <SectionHeading
+        index="02"
+        eyebrow="Projetos"
+        title={
+          <>
+            Projetos em <span className="text-gradient">destaque</span>
+          </>
+        }
+        description="Uma seleção de sistemas que desenvolvi do zero. Todos estão publicados e com o código aberto no GitHub."
+      />
+
+      <div className="space-y-20 sm:space-y-28">
+        {projects.map((project, index) => {
+          const reversed = index % 2 === 1;
+          return (
+            <article
+              key={project.title}
+              className="group grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12"
+            >
+              <Reveal className={cn("lg:col-span-7", reversed && "lg:order-2")}>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative block rounded-2xl"
+                  aria-label={`Abrir ${project.title} em uma nova aba`}
+                >
+                  <div className="absolute -inset-4 rounded-3xl bg-primary/0 blur-2xl transition-smooth duration-500 group-hover:bg-primary/15" aria-hidden />
+                  <div className="relative">
+                    <ProjectPreview project={project} />
+                  </div>
+                </a>
+              </Reveal>
+
+              <Reveal delay={120} className={cn("lg:col-span-5", reversed && "lg:order-1")}>
+                <p className="mb-3 font-mono text-sm text-primary">
+                  {String(index + 1).padStart(2, "0")} <span className="text-white/30">/ {String(projects.length).padStart(2, "0")}</span>
+                </p>
+                <h3 className="text-2xl font-bold text-white sm:text-3xl">{project.title}</h3>
+                <p className="mt-4 leading-relaxed text-muted-foreground">{project.summary}</p>
+
+                <ul className="mt-6 space-y-2.5">
+                  {project.highlights.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm text-white/80">
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+                        <Check size={12} strokeWidth={3} />
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <li key={tag} className="rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-white/70">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/btn inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow-sm transition-smooth hover:bg-primary-glow hover:shadow-glow"
+                  >
+                    Ver projeto
+                    <ArrowUpRight size={16} className="transition-smooth group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                  </a>
+                  <a
+                    href={project.codeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-white transition-smooth hover:border-primary/60 hover:bg-primary/10"
+                  >
+                    <Github size={16} />
+                    Código
+                  </a>
+                </div>
+              </Reveal>
+            </article>
+          );
+        })}
+      </div>
+
+      <Reveal className="mt-24">
+        <a
+          href={githubProfile.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-col items-start justify-between gap-6 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-smooth hover:border-primary/40 hover:bg-primary/[0.05] sm:flex-row sm:items-center sm:p-8"
+        >
+          <div className="flex items-center gap-4">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/[0.05] text-white ring-1 ring-white/10">
+              <Github size={22} />
+            </span>
+            <div>
+              <p className="font-display text-lg font-semibold text-white">Quer ver mais?</p>
+              <p className="text-sm text-muted-foreground">Outros projetos e estudos estão no meu GitHub.</p>
+            </div>
+          </div>
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+            github.com/{githubProfile.handle}
+            <ArrowUpRight size={16} className="transition-smooth group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </span>
+        </a>
+      </Reveal>
+    </div>
+  </section>
+);
 
 export default Projects;

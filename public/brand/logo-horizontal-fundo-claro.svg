@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" fill="none">
+  <title>Leonardo Fabretti</title>
+  <defs>
+    <linearGradient id="lf-bg" x1="22" y1="18" x2="74" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA"/>
+      <stop offset="0.5" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#5322C3"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(16 16)">
+    <rect width="64" height="64" rx="18" fill="url(#lf-bg)"/>
+    <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="17.25" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1.5"/>
+    <path d="M17 17V47H31V17H47M31 31H42" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="39" y="41" width="8" height="6" rx="1.5" fill="#DDD6FE"/>
+  </g>
+  <text x="100" y="50" fill="#0A0A0A" font-family="Sora, 'Segoe UI', Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="-0.6">Leonardo Fabretti</text>
+  <text x="101" y="74" fill="#6D28D9" font-family="'JetBrains Mono', Consolas, monospace" font-size="12.5" font-weight="500" letter-spacing="2">DESENVOLVEDOR WEB &amp; AUTOMAÇÃO</text>
+</svg>

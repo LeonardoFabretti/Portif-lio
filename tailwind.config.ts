@@ -7,12 +7,21 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.5rem",
+        lg: "2rem",
+      },
       screens: {
-        "2xl": "1400px",
+        "2xl": "1200px",
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Sora", "Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -72,11 +81,31 @@ export default {
             height: "0",
           },
         },
+        marquee: {
+          from: { transform: "translate3d(0, 0, 0)" },
+          to: { transform: "translate3d(-100%, 0, 0)" },
+        },
+        "pulse-dot": {
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.4", transform: "scale(1.6)" },
+        },
+        blink: {
+          "0%, 55%": { opacity: "1" },
+          "56%, 100%": { opacity: "0" },
+        },
+        // Deriva lenta das linhas topográficas do fundo
+        "topo-drift": {
+          from: { transform: "translate3d(0, 0, 0) scale(1)" },
+          to: { transform: "translate3d(-18px, 12px, 0) scale(1.04)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-      },
+        marquee: "marquee 45s linear infinite",
+        "pulse-dot": "pulse-dot 2s ease-in-out infinite",
+        blink: "blink 1.1s steps(1, end) infinite",
+        "topo-drift": "topo-drift 30s ease-in-out infinite alternate",      },
     },
   },
   plugins: [require("tailwindcss-animate")],

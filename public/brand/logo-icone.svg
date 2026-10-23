@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Leonardo Fabretti</title>
+  <defs>
+    <linearGradient id="lf-bg" x1="6" y1="2" x2="58" y2="62" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA"/>
+      <stop offset="0.5" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#5322C3"/>
+    </linearGradient>
+    <linearGradient id="lf-shine" x1="32" y1="0" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#lf-bg)"/>
+  <rect width="64" height="64" rx="18" fill="url(#lf-shine)"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="17.25" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1.5"/>
+  <path d="M17 17V47H31V17H47M31 31H42" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="39" y="41" width="8" height="6" rx="1.5" fill="#DDD6FE"/>
+</svg>

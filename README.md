@@ -60,10 +60,27 @@ npm run preview
 
 ## 📄 Seções do Portfólio
 
-- **Início** - Apresentação inicial com call-to-action
-- **Sobre mim** - Informações pessoais e habilidades técnicas
-- **Projetos** - Galeria de projetos desenvolvidos
-- **Contato** - Formas de entrar em contato (WhatsApp, redes sociais, email)
+- **Início** - Apresentação, chamadas para ação, redes sociais e botão de copiar e-mail
+- **Tecnologias** - Faixa animada com linguagens e ferramentas
+- **Sobre** - Quem eu sou, linguagens, ferramentas e o que eu entrego
+- **Projetos** - Projetos em destaque com print, funcionalidades e links
+- **Processo** - Como eu trabalho, do primeiro contato à entrega
+- **Contato** - WhatsApp, e-mail e redes sociais
+
+## ✏️ Como editar o conteúdo
+
+Textos, links, projetos e tecnologias ficam todos em `src/data/portfolio.ts`.
+Para adicionar um projeto, coloque o print em `src/assets/` e inclua um item na lista `projects`.
+
+## 🎨 Logo
+
+O monograma "LF" fica em `public/brand/`:
+
+- `logo-icone.svg` - ícone com fundo roxo
+- `logo-horizontal-fundo-escuro.svg` / `logo-horizontal-fundo-claro.svg` - ícone + nome
+- `logo-monocromatica.svg` - só o traço, em branco
+
+No site, a logo é o componente `src/components/Logo.tsx` (com o cursor piscando).
 
 ## 📞 Contato
 
