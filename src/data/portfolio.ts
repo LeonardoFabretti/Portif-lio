@@ -7,7 +7,6 @@ import {
   FileCode2,
   GitBranch,
   Github,
-  Instagram,
   Layers,
   LayoutDashboard,
   Linkedin,
@@ -59,12 +58,6 @@ export const socialLinks: SocialLink[] = [
     label: "LinkedIn",
     handle: "in/leonardo-fabretti",
     href: "https://www.linkedin.com/in/leonardo-fabretti-b87968369/?trk=opento_sprofile_goalscard",
-  },
-  {
-    icon: Instagram,
-    label: "Instagram",
-    handle: "@lelebs_5",
-    href: "https://www.instagram.com/lelebs_5/",
   },
   {
     icon: Mail,

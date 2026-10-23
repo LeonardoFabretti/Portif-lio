@@ -41,7 +41,8 @@ const Contact = () => (
         </div>
       </Reveal>
 
-      <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {/* 3 redes: uma linha de 3 no desktop; no tablet, 2 em cima e o e-mail ocupando a linha de baixo inteira */}
+      <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>li:last-child]:sm:col-span-2 [&>li:last-child]:lg:col-span-1">
         {socialLinks.map((social, index) => (
           <Reveal as="li" key={social.label} delay={index * 80}>
             <a
