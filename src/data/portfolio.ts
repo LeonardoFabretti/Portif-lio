@@ -24,7 +24,7 @@ import htmlIcon from "@/assets/html-5.png";
 import cssIcon from "@/assets/css-3.png";
 import javascriptIcon from "@/assets/javascript.png";
 
-import sistemaFinanceiroImg from "@/assets/sistema-financeiro.png";
+import royalCutImg from "@/assets/royal-cut.webp";
 import sistemaReservasImg from "@/assets/sistema-reservas.png";
 import sistemaAgendamentoImg from "@/assets/sistema-agendamento.png";
 import cardapioImg from "@/assets/cardapio.png";
@@ -129,7 +129,8 @@ export type Project = {
   highlights: string[];
   tags: string[];
   image: string;
-  link: string;
+  /** endereço do projeto publicado; sem ele, o cartão mostra só o botão do código */
+  link?: string;
   codeLink: string;
   /** "mobile" mostra o print dentro de um celular, "desktop" dentro de uma janela de navegador */
   frame: "desktop" | "mobile";
@@ -137,19 +138,19 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "Sistema Financeiro",
+    title: "Royal Cut · Barbearia",
     summary:
-      "Aplicativo web completo para controle financeiro pessoal: renda, gastos, metas de economia e a evolução mês a mês, tudo em um painel claro.",
+      "Site completo para uma barbearia com espaço feminino e agendamento online de verdade: o cliente escolhe o serviço, o dia e um horário livre, e o profissional acompanha tudo numa agenda própria.",
     highlights: [
-      "Resumo com total recebido, gasto e economizado",
-      "Caixinhas, gráficos por categoria e histórico",
-      "Comparação com o mês anterior e tema claro/escuro",
-      "Exportar e importar os dados com um clique",
+      "Horários livres calculados pela duração de cada serviço",
+      "Banco de dados que impede dois clientes no mesmo horário",
+      "Agenda do profissional com busca, WhatsApp e status",
+      "Tema preto e dourado, modo claro e animações ao rolar",
     ],
-    tags: ["HTML", "CSS", "JavaScript"],
-    image: sistemaFinanceiroImg,
-    link: "https://leonardofabretti.github.io/Sistema-Financeiro/",
-    codeLink: "https://github.com/LeonardoFabretti/Sistema-Financeiro",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"],
+    image: royalCutImg,
+    link: "https://site-barbearia-royal-cut.vercel.app",
+    codeLink: "https://github.com/LeonardoFabretti/site-barbearia-royal-cut",
     frame: "desktop",
   },
   {

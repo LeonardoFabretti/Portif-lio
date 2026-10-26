@@ -38,7 +38,7 @@ const ProjectPreview = ({ project }: { project: Project }) => {
           <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]/80" />
         </div>
         <div className="min-w-0 flex-1 truncate rounded-md bg-white/[0.04] px-3 py-1 text-center font-mono text-[11px] text-muted-foreground">
-          {displayUrl(project.link)}
+          {displayUrl(project.link ?? project.codeLink)}
         </div>
       </div>
       <div className="relative overflow-hidden bg-background">
@@ -79,11 +79,15 @@ const Projects = () => (
             >
               <Reveal className={cn("lg:col-span-7", reversed && "lg:order-2")}>
                 <a
-                  href={project.link}
+                  href={project.link ?? project.codeLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative block rounded-2xl"
-                  aria-label={`Abrir ${project.title} em uma nova aba`}
+                  aria-label={
+                    project.link
+                      ? `Abrir ${project.title} em uma nova aba`
+                      : `Abrir o código de ${project.title} no GitHub`
+                  }
                 >
                   <div className="absolute -inset-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(closest-side,hsl(var(--primary)/0.18),transparent)]" aria-hidden />
                   <div className="relative">
@@ -119,15 +123,17 @@ const Projects = () => (
                 </ul>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/btn inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow-sm transition-smooth hover:bg-primary-glow hover:shadow-glow"
-                  >
-                    Ver projeto
-                    <ArrowUpRight size={16} className="transition-smooth group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
-                  </a>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/btn inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow-sm transition-smooth hover:bg-primary-glow hover:shadow-glow"
+                    >
+                      Ver projeto
+                      <ArrowUpRight size={16} className="transition-smooth group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                    </a>
+                  )}
                   <a
                     href={project.codeLink}
                     target="_blank"
